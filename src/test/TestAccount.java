@@ -16,8 +16,8 @@ public class TestAccount {
 	
 	@Test
 	public void test() {
-		assertEquals(checking_account.get_account_type(), Account.CHECKING);
-		assertEquals(savings_account.get_account_type(), Account.SAVINGS);
+		assertEquals(checking_account.get_account_type(), AccountType.CHECKING);
+		assertEquals(savings_account.get_account_type(), AccountType.SAVINGS);
 		assertEquals(checking_account.get_balance(), 50.0, 0.00000001);
 		assertEquals(savings_account.get_balance(), 50.0, 0.00000001);
 		savings_account.deposit(50.0);

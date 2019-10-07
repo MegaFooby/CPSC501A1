@@ -13,7 +13,7 @@ public class TestBank {
 		bank = new Bank();
 		bank.add_customer("Bob");
 		Person bob = bank.get_customer("Bob");
-		bob.open_account(Account.CHECKING, 50.0);
+		bob.open_account(AccountType.CHECKING, 50.0);
 	}
 	
 	@Test
