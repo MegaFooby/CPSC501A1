@@ -1,7 +1,6 @@
 package bank;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A bank containing customers and their accounts
@@ -11,13 +10,13 @@ import java.util.Scanner;
 
 public class Bank {
 	
-	private ArrayList<Person> customers;
+	private HashMap<String, ArrayList<Account>> customers;
 	
 	/**
 	 * Basic constructor
 	 */
 	public Bank() {
-		this.customers = new ArrayList<Person>();
+		this.customers = new HashMap<String, ArrayList<Account>>();
 	}
 	
 	/**
@@ -25,7 +24,7 @@ public class Bank {
 	 * @param name	Name of the customer
 	 */
 	public void add_customer(String name) {
-		this.customers.add(new Person(name));
+		this.customers.put(name, new ArrayList<Account>());
 	}
 	
 	/**
@@ -33,24 +32,31 @@ public class Bank {
 	 * @param name	Name of the customer
 	 * @return	The person object corresponding to it
 	 */
-	public Person get_customer(String name) {
-		for(Person p : this.customers) {
-			if(name.equals(p.get_name())) {
-				return p;
-			}
-		}
-		return null;
+	public ArrayList<Account> get_customer(String name) {
+		return customers.get(name);
 	}
 	
 	/**
 	 * Ends the month
 	 */
 	public void end_month() {
-		for(Person p : this.customers) {
-			for(Account a : p.get_accounts()) {
+		for(ArrayList<Account> p : this.customers.values()) {
+			for(Account a : p) {
 				a.end_of_month();
 			}
 		}
+	}
+	
+	public Account open_account(String name, AccountType type, double amount) {
+		Account account = null;
+		if(type == AccountType.SAVINGS) {
+			account = new SavingsAccount(amount);
+		}
+		else if(type == AccountType.CHECKING) {
+			account = new CheckingAccount(amount);
+		}
+		this.get_customer(name).add(account);
+		return account;
 	}
 	
 	/**
@@ -71,7 +77,8 @@ public class Bank {
 				in = keyboard.nextLine();
 				bank.add_customer(in);
 			} else {
-				Person person = bank.get_customer(in);
+				String name = in;
+				ArrayList<Account> person = bank.get_customer(in);
 				if(person == null) {
 					System.out.print("Customer not found\n");
 					continue;
@@ -84,11 +91,11 @@ public class Bank {
 					switch(in.toLowerCase()) {
 					case "1":
 					case "checking":
-						person.open_account(AccountType.CHECKING, 0);
+						bank.open_account(name, AccountType.CHECKING, 0.0);
 						break;
 					case "2":
 					case "savings":
-						person.open_account(AccountType.SAVINGS, 0);
+						bank.open_account(name, AccountType.SAVINGS, 0.0);
 						break;
 					default:
 						System.out.print("Invalid account type\n");	
@@ -98,10 +105,10 @@ public class Bank {
 					try {
 						int num = Integer.parseInt(in);
 						num--;
-						if(num > person.get_accounts().size()) {
+						if(num > person.size()) {
 							throw new NumberFormatException();
 						}
-						System.out.print("Current balance is $" + person.get_accounts().get(num).get_balance() + ".\n1. Deposit\n2. Withdraw\n");
+						System.out.print("Current balance is $" + person.get(num).get_balance() + ".\n1. Deposit\n2. Withdraw\n");
 						in = keyboard.nextLine();
 						switch(in.toLowerCase()) {
 						case "1":
@@ -109,14 +116,14 @@ public class Bank {
 							System.out.print("Select amount\n");
 							in = keyboard.nextLine();
 							double dep = Double.parseDouble(in);
-							person.get_accounts().get(num).deposit(dep);
+							person.get(num).deposit(dep);
 							break;
 						case "2":
 						case "withdraw":
 							System.out.print("Select amount\n");
 							in = keyboard.nextLine();
 							double with = Double.parseDouble(in);
-							boolean b = person.get_accounts().get(num).withdraw(with);
+							boolean b = person.get(num).withdraw(with);
 							if(b == false) {
 								System.out.print("Failed to withdraw\n");
 							}

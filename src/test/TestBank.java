@@ -2,6 +2,9 @@ package test;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import bank.*;
 
 public class TestBank {
@@ -12,14 +15,14 @@ public class TestBank {
 	public void initialize() {
 		bank = new Bank();
 		bank.add_customer("Bob");
-		Person bob = bank.get_customer("Bob");
-		bob.open_account(AccountType.CHECKING, 50.0);
+		ArrayList<Account> bob = bank.get_customer("Bob");
+		bank.open_account("Bob", AccountType.CHECKING, 50.0);
 	}
 	
 	@Test
 	public void test_customers() {
 		assertNotNull(bank.get_customer("Bob"));
-		assertEquals(bank.get_customer("Bob").get_accounts().get(0).get_balance(), 50.0, 0.00000001);
+		assertEquals(bank.get_customer("Bob").get(0).get_balance(), 50.0, 0.00000001);
 	}
 	
 }
