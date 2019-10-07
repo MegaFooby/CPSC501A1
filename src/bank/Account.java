@@ -8,9 +8,6 @@ package bank;
 
 public interface Account {
 	
-	public static final int CHECKING = 0;
-	public static final int SAVINGS = 1;
-	
 	/**
 	 * Get the current balance of the account
 	 * @return	Balance
@@ -46,6 +43,6 @@ public interface Account {
 	 * Returns if it is a checking or savings account
 	 * @return	Account type
 	 */
-	public byte get_account_type();
+	public AccountType get_account_type();
 
 }

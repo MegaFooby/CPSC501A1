@@ -43,12 +43,12 @@ public class Person {
 	 * @param amount	Initial deposit
 	 * @return	The account that was just opened
 	 */
-	public Account open_account(int type, double amount) {
+	public Account open_account(AccountType type, double amount) {
 		Account account = null;
-		if(type == Account.SAVINGS) {
+		if(type == AccountType.SAVINGS) {
 			account = new SavingsAccount(amount);
 		}
-		else if(type == Account.CHECKING) {
+		else if(type == AccountType.CHECKING) {
 			account = new CheckingAccount(amount);
 		}
 		accounts.add(account);

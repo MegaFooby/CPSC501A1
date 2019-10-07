@@ -84,11 +84,11 @@ public class Bank {
 					switch(in.toLowerCase()) {
 					case "1":
 					case "checking":
-						person.open_account(Account.CHECKING, 0);
+						person.open_account(AccountType.CHECKING, 0);
 						break;
 					case "2":
 					case "savings":
-						person.open_account(Account.SAVINGS, 0);
+						person.open_account(AccountType.SAVINGS, 0);
 						break;
 					default:
 						System.out.print("Invalid account type\n");	

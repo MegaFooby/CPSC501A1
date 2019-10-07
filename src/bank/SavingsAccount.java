@@ -56,8 +56,8 @@ public class SavingsAccount implements Account {
 	}
 	
 	@Override
-	public byte get_account_type() {
-		return Account.SAVINGS;
+	public AccountType get_account_type() {
+		return AccountType.SAVINGS;
 	}
 	
 	@Override
