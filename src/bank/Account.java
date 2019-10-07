@@ -47,6 +47,5 @@ public interface Account {
 	 * @return	Account type
 	 */
 	public byte get_account_type();
-	
-	public void add_account(Bank bank, String name, byte type);
+
 }

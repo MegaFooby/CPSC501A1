@@ -64,10 +64,5 @@ public class CheckingAccount implements Account {
 	public double get_balance() {
 		return amount;
 	}
-
-	@Override
-	public void add_account(Bank bank, String name, byte type) {
-		bank.get_customer(name).open_account(Account.CHECKING, 0.0);
-	}
 	
 }

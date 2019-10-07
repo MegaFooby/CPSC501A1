@@ -64,10 +64,5 @@ public class SavingsAccount implements Account {
 	public double get_balance() {
 		return amount;
 	}
-	
-	@Override
-	public void add_account(Bank bank, String name, byte type) {
-		bank.get_customer(name).open_account(Account.SAVINGS, 0.0);
-	}
 
 }
